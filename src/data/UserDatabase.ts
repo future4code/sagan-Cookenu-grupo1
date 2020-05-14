@@ -10,6 +10,7 @@ export class UserDatabase extends BaseDatabase {
                 id,
                 email,
                 password,
+                
                 name
             })
             .into(UserDatabase.TABLE_NAME)
