@@ -1,7 +1,7 @@
 import { BaseDatabase } from "./BaseDatabase";
 
 export class UserConnectionDatabase extends BaseDatabase {
-  private static TABLE_NAME = "UserFollowConnection"
+  public static TABLE_NAME = "UserFollowConnection"
 
   public async follow(followerId:string, followedId:string): Promise<void> {
       await this.setConnection()

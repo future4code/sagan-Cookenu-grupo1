@@ -2,7 +2,7 @@ import { BaseDatabase } from "./BaseDatabase";
 
 
 export class RecipeDatabase extends BaseDatabase {
-    private static TABLE_NAME = "Recipes"
+    public static TABLE_NAME = "Recipes"
 
     public async createRecipe(data: RecipeInput): Promise<void> {
         await this.setConnection()
