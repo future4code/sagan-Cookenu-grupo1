@@ -26,7 +26,6 @@ export const getProfileByIdEP = async (req: Request, res: Response) => {
       name: seekedData.name,
       email: seekedData.email
     })
-
   }
   catch (err) {
     res.status(400).send({ message: err.message })

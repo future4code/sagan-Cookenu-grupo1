@@ -3,6 +3,7 @@ import { BaseDatabase } from '../data/BaseDatabase'
 import { IdGenerator } from '../services/IdGenerator'
 import { TokenManager } from '../services/TokenManager'
 import { RecipeDatabase } from '../data/RecipeDatabase'
+import * as moment from 'moment'
 
 
 export const createRecipeEP = async (req: Request, res: Response) => {
@@ -11,8 +12,8 @@ export const createRecipeEP = async (req: Request, res: Response) => {
     await new RecipeDatabase().createRecipe({
       id: new IdGenerator().generateId(),
       title: req.body.title,
-      descripton: req.body.description,
-      createdAt: Date.now(),
+      description: req.body.description,
+      createdAt: moment.now(),
       creatorUserId: new TokenManager()
       .retrieveDataFromToken(req.headers.authorization as string)
     })

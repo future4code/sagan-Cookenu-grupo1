@@ -9,7 +9,7 @@ export class RecipeDatabase extends BaseDatabase {
             .raw(`INSERT INTO ${RecipeDatabase.TABLE_NAME} VALUES (
                 "${data.id}", 
                 "${data.title}", 
-                "${data.descripton}", 
+                "${data.description}", 
                 ${data.createdAt}, 
                 "${data.creatorUserId}")`
             )
@@ -29,7 +29,7 @@ export class RecipeDatabase extends BaseDatabase {
 interface RecipeInput {
     id: string,
     title: string,
-    descripton: string,
+    description: string,
     createdAt: number,
     creatorUserId: string
 }
