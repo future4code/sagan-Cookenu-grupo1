@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 import { AddressInfo } from "net"
 import express from "express"
-import { signupEP } from "./endpoints/createRecipeEP"
+import { signupEP } from "./endpoints/signupEP"
 
 dotenv.config()
 const app = express()

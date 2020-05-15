@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { BaseDatabase } from '../data/BaseDatabase'
 
 
-export const signupEP = async (req: Request, res: Response) => {
+export const getOwnProfileEP = async (req: Request, res: Response) => {
     try {
 
     }
