@@ -14,7 +14,7 @@ export const signupEP = async (req: Request, res: Response) => {
             password: req.body.password
         }
 
-        if(!data.name || !data.email || !data.password || (data.password.lenght < 6)) {
+        if(!data.name || !data.email || !data.password || data.password.length < 6) {
             throw new Error("Dados de cadastro inválidos")
         }
 
