@@ -7,11 +7,11 @@ export class RecipeDatabase extends BaseDatabase {
     public async createRecipe(data: RecipeInput): Promise<void> {
         await this.setConnection()
             .raw(`INSERT INTO ${RecipeDatabase.TABLE_NAME} VALUES (
-                ${data.id},
-                ${data.title}, 
-                ${data.descripton}, 
+                "${data.id}", 
+                "${data.title}", 
+                "${data.description}", 
                 ${data.createdAt}, 
-                ${data.creatorUserId})`
+                "${data.creatorUserId}")`
             )
     }
 
@@ -29,7 +29,7 @@ export class RecipeDatabase extends BaseDatabase {
 interface RecipeInput {
     id: string,
     title: string,
-    descripton: string,
+    description: string,
     createdAt: number,
     creatorUserId: string
 }
