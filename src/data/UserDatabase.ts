@@ -30,7 +30,7 @@ export class UserDatabase extends BaseDatabase {
         JOIN ${UserConnectionDatabase.TABLE_NAME} uc ON r.creator_user_id = uc.followed_id
         JOIN ${UserDatabase.TABLE_NAME} u ON uc.followed_id = u.id
         WHERE uc.follower_id = "${userId}" 
-        ORDER BY r.created_at`)
+        ORDER BY r.created_at DESC`)
 
         const newArray = result[0].map((recipe: { createdAt: number; }) => {
           return {
