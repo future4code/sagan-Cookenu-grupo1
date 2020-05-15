@@ -9,6 +9,7 @@ import { createRecipeEP } from "./endpoints/createRecipeEP"
 import { getRecipeEP } from "./endpoints/getRecipeEP"
 import { followUserEP } from "./endpoints/followUserEP"
 import { unfollowUserEP } from "./endpoints/unfollowUserEP"
+import { getRecipeFeedEP } from "./endpoints/getRecipeFeedEP"
 
 dotenv.config()
 const app = express()
@@ -28,6 +29,7 @@ app.post("/signup", signupEP)
 app.post('/login', loginEP)
 
 app.get('/user/profile', getOwnProfileEP)
+app.get('/user/feed', getRecipeFeedEP)
 app.get('/user/:id', getProfileByIdEP)
 
 
