@@ -6,19 +6,20 @@ import { UserDatabase } from '../data/UserDatabase'
 
 export const getOwnProfileEP = async (req: Request, res: Response) => {
   try {
-    const authorization = req.headers.authorization as string
+    const retriviedData = new TokenManager()
+      .retrieveDataFromToken(req.headers.authorization as string)
 
-    const tokenManager = new TokenManager()
-    const id = tokenManager.retrieveDataFromToken(authorization)
+    const userData = await new UserDatabase().getUserById(retriviedData.id)
 
-    const userDatabase = new UserDatabase()
-    const userData = await userDatabase.getUserById(id)
-
+    if (!userData) {
+      throw new Error('Faça login na sua conta antes de procurar outros usuários')
+    }
 
     res.status(200).send({
       id: userData.id,
       name: userData.name,
-      email: userData.email
+      email: userData.email,
+      role: userData.role
     })
 
   }

@@ -6,17 +6,19 @@ import { UserDatabase } from '../data/UserDatabase'
 
 export const getProfileByIdEP = async (req: Request, res: Response) => {
   try {
-    const authorization = req.headers.authorization as string
     const seekedId = req.params.id
 
-    const tokenManager = new TokenManager()
-    const id = tokenManager.retrieveDataFromToken(authorization)
+    const retriviedData = new TokenManager()
+    .retrieveDataFromToken(req.headers.authorization as string)
 
     const userDatabase = new UserDatabase()
-    const researcherData = await userDatabase.getUserById(id)
+    const userData = await userDatabase.getUserById(retriviedData.id)
 
-    if(!researcherData){
+    if(!userData){
       throw new Error('Faça login na sua conta antes de procurar outros usuários')
+    }
+    if(!seekedId){
+      throw new Error('Formato do id errado')
     }
 
     const seekedData = await userDatabase.getUserById(seekedId)
@@ -24,7 +26,8 @@ export const getProfileByIdEP = async (req: Request, res: Response) => {
     res.status(200).send({
       id: seekedData.id,
       name: seekedData.name,
-      email: seekedData.email
+      email: seekedData.email,
+      role:seekedData.role
     })
   }
   catch (err) {

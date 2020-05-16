@@ -16,18 +16,18 @@ export const loginEP = async (req: Request, res: Response) => {
       throw new Error("Dados de cadastro inválidos")
     }
 
-    const userDatabase = new UserDatabase()
-    const userData = await userDatabase.getUserByEmail(data.email)
+    const userData = await new UserDatabase().getUserByEmail(data.email)
 
-    const hashManager = new HashManager()
-    const isPasswordValid = await hashManager.compareHash(data.password, userData.password)
+    const isPasswordValid = await new HashManager().compareHash(data.password, userData.password)
 
     if (!isPasswordValid) {
       throw new Error('Email ou senha incorreta')
     }
-
-    const tokenManager = new TokenManager()
-    const token = tokenManager.generateToken(userData.id)
+ 
+    const token = new TokenManager().generateToken({
+      id: userData.id,
+      role: userData.role
+    })
 
     res.status(200).send({ token })
 
