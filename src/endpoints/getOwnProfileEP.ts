@@ -21,7 +21,6 @@ export const getOwnProfileEP = async (req: Request, res: Response) => {
       email: userData.email,
       role: userData.role
     })
-
   }
   catch (err) {
     res.status(400).send({ message: err.message })

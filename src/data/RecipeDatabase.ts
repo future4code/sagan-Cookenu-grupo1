@@ -26,14 +26,21 @@ export class RecipeDatabase extends BaseDatabase {
 
   public async updateRecipe(id: string, title: string, description: string): Promise<void> {
     await this.setConnection().raw(`
-    UPDATE ${RecipeDatabase.TABLE_NAME} SET title='${title}', description='${description}' 
-    WHERE id='${id}' 
+      UPDATE ${RecipeDatabase.TABLE_NAME} SET title='${title}', description='${description}' 
+      WHERE id='${id}' 
     `)
   }
 
-  public async deleteRecipe(id: string): Promise<void>{
+  public async deleteRecipeById(id: string): Promise<void> {
     await this.setConnection().raw(`
-    DELETE FROM ${RecipeDatabase.TABLE_NAME} WHERE id="${id}"`)
+      DELETE FROM ${RecipeDatabase.TABLE_NAME} WHERE id="${id}"
+    `)
+  }
+
+  public async deleteRecipeCreatorId(id: string): Promise<void> {
+    await this.setConnection().raw(`
+      DELETE FROM ${RecipeDatabase.TABLE_NAME} WHERE creator_user_id="${id}"
+    `)
   }
 }
 

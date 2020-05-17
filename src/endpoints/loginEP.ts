@@ -30,7 +30,6 @@ export const loginEP = async (req: Request, res: Response) => {
     })
 
     res.status(200).send({ token })
-
   }
   catch (err) {
     res.status(400).send({ message: err.message })

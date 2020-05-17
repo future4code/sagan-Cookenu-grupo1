@@ -29,7 +29,6 @@ export const followUserEP = async (req: Request, res: Response) => {
     res.status(200).send({
       message: "Followed successfully"
     })
-
   }
   catch (err) {
     res.status(400).send({ message: err.message })

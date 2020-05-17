@@ -28,15 +28,11 @@ export const deleteRecipeEP = async (req: Request, res: Response) => {
       throw new Error('Este perfil só pode apagar as próprias receitas')
     }
 
-    await recipeDataBase.deleteRecipe(recipeId)
+    await recipeDataBase.deleteRecipeById(recipeId)
 
     res.status(200).send({
       message: "Receita apagada com sucesso"
     })
-    res.status(200).send({})
-
-    res.status(200).send({})
-
   }
   catch (err) {
     res.status(400).send({ message: err.message })

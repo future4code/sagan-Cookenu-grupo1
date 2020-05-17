@@ -35,7 +35,7 @@ app.get('/user/profile', getOwnProfileEP)
 app.get('/user/feed', getRecipeFeedEP)
 app.get('/user/:id', getProfileByIdEP)
 
-app.delete('/user', deleteUserAccountEP) 
+app.delete('/user/:id', deleteUserAccountEP) 
 
 
 //Recipes Endpoints

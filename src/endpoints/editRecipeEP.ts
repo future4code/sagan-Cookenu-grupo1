@@ -48,8 +48,6 @@ export const editeRecipeEP = async (req: Request, res: Response) => {
     res.status(200).send({
       message: "Atualizado com sucesso"
     })
-    res.status(200).send({})
-
   }
   catch (err) {
     res.status(400).send({ message: err.message })
