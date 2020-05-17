@@ -30,6 +30,11 @@ export class RecipeDatabase extends BaseDatabase {
     WHERE id='${id}' 
     `)
   }
+
+  public async deleteRecipe(id: string): Promise<void>{
+    await this.setConnection().raw(`
+    DELETE FROM ${RecipeDatabase.TABLE_NAME} WHERE id="${id}"`)
+  }
 }
 
 
