@@ -2,34 +2,41 @@ import { BaseDatabase } from "./BaseDatabase";
 
 
 export class RecipeDatabase extends BaseDatabase {
-    public static TABLE_NAME = "Recipes"
+  public static TABLE_NAME = "Recipes"
 
-    public async createRecipe(data: RecipeInput): Promise<void> {
-        await this.setConnection()
-            .raw(`INSERT INTO ${RecipeDatabase.TABLE_NAME} VALUES (
+  public async createRecipe(data: RecipeInput): Promise<void> {
+    await this.setConnection()
+      .raw(`INSERT INTO ${RecipeDatabase.TABLE_NAME} VALUES (
                 "${data.id}", 
                 "${data.title}", 
                 "${data.description}", 
                 ${data.createdAt}, 
                 "${data.creatorUserId}")`
-            )
-    }
+      )
+  }
 
-    public async getRecipesById(id: string): Promise<any> {
-        const recipes = await this.setConnection()
-            .select('*')
-            .from(RecipeDatabase.TABLE_NAME)
-            .where({ id })
+  public async getRecipesById(id: string): Promise<any> {
+    const recipes = await this.setConnection()
+      .select('*')
+      .from(RecipeDatabase.TABLE_NAME)
+      .where({ id })
 
-        return recipes[0]
-    }
+    return recipes[0]
+  }
+
+  public async updateRecipe(id: string, title: string, description: string): Promise<void> {
+    await this.setConnection().raw(`
+    UPDATE ${RecipeDatabase.TABLE_NAME} SET title='${title}', description='${description}' 
+    WHERE id='${id}' 
+    `)
+  }
 }
 
 
 interface RecipeInput {
-    id: string,
-    title: string,
-    description: string,
-    createdAt: number,
-    creatorUserId: string
+  id: string,
+  title: string,
+  description: string,
+  createdAt: number,
+  creatorUserId: string
 }
