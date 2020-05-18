@@ -5,21 +5,27 @@ import { TokenManager } from '../services/TokenManager'
 
 
 export const getRecipeFeedEP = async (req: Request, res: Response) => {
-    try {
-        const token = req.headers.authorization as string
+  try {
+    const token = req.headers.authorization as string
 
-        const userId = new TokenManager().retrieveDataFromToken(token)
+    const retriviedData = new TokenManager().retrieveDataFromToken(token)
 
-        const recipesArray = await new UserDatabase().getFeed(userId)
+    const userData = await new UserDatabase().getUserById(retriviedData.id)
 
-        res.status(200).send({
-          recipes: recipesArray
-        })
+    if (!userData) {
+      throw new Error('Faça login na sua conta antes de criar outras receitas')
     }
-    catch (err) {
-      res.status(400).send({ message1: err.message })
-    }
-    finally {
-        await BaseDatabase.desconnectDB()
-    }
+
+    const recipesArray = await new UserDatabase().getFeed(userData.id)
+
+    res.status(200).send({
+      recipes: recipesArray
+    })
+  }
+  catch (err) {
+    res.status(400).send({ message1: err.message })
+  }
+  finally {
+    await BaseDatabase.desconnectDB()
+  }
 }

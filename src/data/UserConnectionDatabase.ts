@@ -19,4 +19,11 @@ export class UserConnectionDatabase extends BaseDatabase {
         .where({followed_id: followedId})
         .andWhere({follower_id: followerId})
   }
+
+  public async deleteRelations(id: string): Promise<void> {
+    await this.setConnection().raw(`
+      DELETE FROM ${UserConnectionDatabase.TABLE_NAME} 
+      WHERE followed_id="${id}" OR follower_id="${id}"
+    `)
+  }
 }

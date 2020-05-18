@@ -10,6 +10,9 @@ import { getRecipeEP } from "./endpoints/getRecipeEP"
 import { followUserEP } from "./endpoints/followUserEP"
 import { unfollowUserEP } from "./endpoints/unfollowUserEP"
 import { getRecipeFeedEP } from "./endpoints/getRecipeFeedEP"
+import { deleteUserAccountEP } from "./endpoints/deleteUserAccountEP"
+import { editeRecipeEP } from "./endpoints/editRecipeEP"
+import { deleteRecipeEP } from "./endpoints/deleteRecipeEP"
 
 dotenv.config()
 const app = express()
@@ -32,11 +35,17 @@ app.get('/user/profile', getOwnProfileEP)
 app.get('/user/feed', getRecipeFeedEP)
 app.get('/user/:id', getProfileByIdEP)
 
+app.delete('/user/:id', deleteUserAccountEP) 
+
 
 //Recipes Endpoints
 app.post('/recipe', createRecipeEP)
 
 app.get('/recipe/:id', getRecipeEP)
+
+app.put('/recipe/:id', editeRecipeEP) 
+
+app.delete('/recipe/:id', deleteRecipeEP)
 
 //UserConnections
 app.post('/user/follow', followUserEP)

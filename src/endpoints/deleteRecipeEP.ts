@@ -1,14 +1,11 @@
 import { Request, Response } from 'express'
 import { BaseDatabase } from '../data/BaseDatabase'
 import { TokenManager } from '../services/TokenManager'
-import { RecipeDatabase } from '../data/RecipeDatabase'
-import * as moment from 'moment'
 import { UserDatabase } from '../data/UserDatabase'
+import { RecipeDatabase } from '../data/RecipeDatabase'
 
-
-export const getRecipeEP = async (req: Request, res: Response) => {
+export const deleteRecipeEP = async (req: Request, res: Response) => {
   try {
-
     const retriviedData = new TokenManager()
       .retrieveDataFromToken(req.headers.authorization as string)
 
@@ -19,17 +16,22 @@ export const getRecipeEP = async (req: Request, res: Response) => {
     }
 
     const recipeId = req.params.id
+
     if (!recipeId) {
       throw new Error('Insira o id da receita buscada')
     }
 
-    const recipe = await new RecipeDatabase().getRecipesById(recipeId)
+    const recipeDataBase = new RecipeDatabase()
+    const recipeData = await recipeDataBase.getRecipesById(recipeId)
+
+    if (recipeData.creator_user_id !== userData.id && userData.role!=="admin") {
+      throw new Error('Este perfil só pode apagar as próprias receitas')
+    }
+
+    await recipeDataBase.deleteRecipeById(recipeId)
 
     res.status(200).send({
-      id: recipe.id,
-      title: recipe.title,
-      description: recipe.description,
-      createdAt: moment.unix(recipe.created_at / 1000).format("DD/MM/YYYY"),
+      message: "Receita apagada com sucesso"
     })
   }
   catch (err) {
